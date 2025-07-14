@@ -1,0 +1,310 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String?  @unique
+  walletAddress String? @unique
+  
+  // Profile Information
+  firstName String
+  lastName  String
+  nationalId String? @unique
+  dateOfBirth DateTime?
+  address   String?
+  
+  // Authentication
+  password  String
+  
+  // Membership
+  membershipStatus MembershipStatus @default(PENDING)
+  membershipNumber String? @unique
+  joinedAt  DateTime @default(now())
+  approvedAt DateTime?
+  approvedBy String?
+  
+  // Role and Permissions
+  role      UserRole @default(MEMBER)
+  isActive  Boolean  @default(true)
+  
+  // Financial Information
+  savingsAccounts SavingsAccount[]
+  loans     Loan[]
+  transactions Transaction[]
+  
+  // Governance
+  proposalsCreated Proposal[] @relation("ProposalCreator")
+  votes     Vote[]
+  
+  // Audit
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("users")
+}
+
+// Savings Management
+model SavingsAccount {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  accountType SavingsAccountType
+  balance   Float    @default(0)
+  interestRate Float @default(0)
+  
+  // Interest Calculation
+  lastInterestCalculated DateTime @default(now())
+  totalInterestEarned Float @default(0)
+  
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Related transactions
+  deposits  Transaction[] @relation("DepositAccount")
+  withdrawals Transaction[] @relation("WithdrawalAccount")
+  
+  @@map("savings_accounts")
+}
+
+// Loan Management
+model Loan {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Loan Details
+  amount    Float
+  interestRate Float
+  termMonths Int
+  purpose   String
+  
+  // Status and Approval
+  status    LoanStatus @default(PENDING)
+  appliedAt DateTime @default(now())
+  approvedAt DateTime?
+  approvedBy String?
+  disbursedAt DateTime?
+  
+  // Repayment Information
+  monthlyPayment Float
+  totalRepayment Float
+  remainingBalance Float
+  nextPaymentDue DateTime?
+  
+  // Collateral
+  collateralType String?
+  collateralValue Float?
+  collateralDescription String?
+  
+  // Repayments
+  repayments LoanRepayment[]
+  
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("loans")
+}
+
+model LoanRepayment {
+  id        String   @id @default(cuid())
+  loanId    String
+  loan      Loan     @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  
+  amount    Float
+  principal Float
+  interest  Float
+  penalty   Float    @default(0)
+  
+  dueDate   DateTime
+  paidDate  DateTime?
+  status    PaymentStatus @default(PENDING)
+  
+  transactionId String?
+  transaction Transaction? @relation(fields: [transactionId], references: [id])
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("loan_repayments")
+}
+
+// Transaction Management
+model Transaction {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  type      TransactionType
+  amount    Float
+  description String?
+  reference String?   @unique
+  
+  // Account Relations
+  savingsAccountId String?
+  depositAccount   SavingsAccount? @relation("DepositAccount", fields: [savingsAccountId], references: [id])
+  withdrawalAccountId String?
+  withdrawalAccount SavingsAccount? @relation("WithdrawalAccount", fields: [withdrawalAccountId], references: [id])
+  
+  // Blockchain Information
+  txHash    String?
+  blockNumber BigInt?
+  gasUsed   String?
+  
+  status    TransactionStatus @default(PENDING)
+  processedAt DateTime?
+  
+  // Loan Repayment
+  loanRepayments LoanRepayment[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("transactions")
+}
+
+// Governance
+model Proposal {
+  id        String   @id @default(cuid())
+  creatorId String
+  creator   User     @relation("ProposalCreator", fields: [creatorId], references: [id])
+  
+  title     String
+  description String
+  category  ProposalCategory
+  
+  // Voting Information
+  votingStartsAt DateTime
+  votingEndsAt   DateTime
+  quorumRequired Int @default(50) // Percentage
+  
+  status    ProposalStatus @default(DRAFT)
+  
+  // Results
+  votesFor  Int      @default(0)
+  votesAgainst Int   @default(0)
+  totalVotes Int     @default(0)
+  
+  votes     Vote[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("proposals")
+}
+
+model Vote {
+  id         String   @id @default(cuid())
+  proposalId String
+  proposal   Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  vote       VoteChoice
+  weight     Int      @default(1)
+  reason     String?
+  
+  createdAt  DateTime @default(now())
+  
+  @@unique([proposalId, userId])
+  @@map("votes")
+}
+
+// System Configuration
+model SystemConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("system_config")
+}
+
+// Enums
+enum UserRole {
+  MEMBER
+  ADMIN
+  TREASURER
+  CHAIRPERSON
+}
+
+enum MembershipStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+  TERMINATED
+}
+
+enum SavingsAccountType {
+  REGULAR
+  FIXED_DEPOSIT
+  EMERGENCY
+}
+
+enum LoanStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  DISBURSED
+  COMPLETED
+  DEFAULTED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  OVERDUE
+  PARTIAL
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  LOAN_DISBURSEMENT
+  LOAN_REPAYMENT
+  INTEREST_PAYMENT
+  FEE_PAYMENT
+  TRANSFER
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum ProposalCategory {
+  POLICY_CHANGE
+  FINANCIAL_DECISION
+  MEMBERSHIP_ISSUE
+  GENERAL
+}
+
+enum ProposalStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum VoteChoice {
+  FOR
+  AGAINST
+  ABSTAIN
+}

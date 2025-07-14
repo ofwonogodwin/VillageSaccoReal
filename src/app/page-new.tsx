@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Users, Wallet, Vote, TrendingUp } from "lucide-react"
-import Link from "next/link"
 
 export default function Home() {
     return (
@@ -15,12 +14,8 @@ export default function Home() {
                             <h1 className="text-2xl font-bold text-gray-900">Village SACCO</h1>
                         </div>
                         <div className="flex space-x-4">
-                            <Link href="/login">
-                                <Button variant="outline">Login</Button>
-                            </Link>
-                            <Link href="/register">
-                                <Button>Get Started</Button>
-                            </Link>
+                            <Button variant="outline">Login</Button>
+                            <Button>Get Started</Button>
                         </div>
                     </div>
                 </div>
@@ -37,12 +32,10 @@ export default function Home() {
                         Join the future of cooperative finance built on transparency and trust.
                     </p>
                     <div className="flex justify-center space-x-4">
-                        <Link href="/register">
-                            <Button size="lg" className="flex items-center space-x-2">
-                                <span>Join SACCO</span>
-                                <ArrowRight className="h-4 w-4" />
-                            </Button>
-                        </Link>
+                        <Button size="lg" className="flex items-center space-x-2">
+                            <span>Join SACCO</span>
+                            <ArrowRight className="h-4 w-4" />
+                        </Button>
                         <Button variant="outline" size="lg">Learn More</Button>
                     </div>
                 </div>
