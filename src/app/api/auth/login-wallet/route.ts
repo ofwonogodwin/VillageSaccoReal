@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     // Check if user is approved
     if (user.membershipStatus === "PENDING") {
       return NextResponse.json(
-        { error: "Your membership is still pending approval" },
+        { error: "Membership pending approval" },
         { status: 403 }
       )
     }

@@ -16,15 +16,15 @@ export const config = createConfig({
         iconUrl: 'https://example.com/icon.png',
       },
     }),
-    
+
     // Coinbase Wallet
     coinbaseWallet({
       appName: 'Village SACCO',
       appLogoUrl: 'https://example.com/logo.png',
     }),
-    
+
     // Trust Wallet (via WalletConnect)
-    walletConnect({ 
+    walletConnect({
       projectId,
       metadata: {
         name: 'Village SACCO',

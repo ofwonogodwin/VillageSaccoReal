@@ -27,19 +27,34 @@ export default function LoginPage() {
         setIsLoading(true)
         setError("")
 
+        // Debug logging
+        console.log("Traditional login attempt:", { email, hasPassword: !!password })
+
         try {
+            const requestBody = { email, password }
+            console.log("Sending request to /api/auth/login with:", requestBody)
+            
             const response = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify(requestBody),
             })
+            
+            console.log("Response status:", response.status)
 
             const data = await response.json()
 
             if (!response.ok) {
-                throw new Error(data.error || "Login failed")
+                const errorMessage = data.error || "Login failed"
+                
+                // Provide user-friendly message for pending approval
+                if (errorMessage === "Membership pending approval") {
+                    throw new Error("Your account is pending approval. Your registration will be reviewed and approved within 24 hours. Please check your email for updates.")
+                }
+                
+                throw new Error(errorMessage)
             }
 
             // Store token in localStorage
@@ -89,7 +104,14 @@ export default function LoginPage() {
             const data = await response.json()
 
             if (!response.ok) {
-                throw new Error(data.error || "Wallet login failed")
+                const errorMessage = data.error || "Wallet login failed"
+                
+                // Provide user-friendly message for pending approval
+                if (errorMessage === "Membership pending approval") {
+                    throw new Error("Your account is pending approval. Your registration will be reviewed and approved within 24 hours. Please check your email for updates.")
+                }
+                
+                throw new Error(errorMessage)
             }
 
             // Store token in localStorage

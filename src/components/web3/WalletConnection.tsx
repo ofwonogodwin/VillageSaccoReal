@@ -107,9 +107,9 @@ export function WalletConnection() {
                   {(isPending || isConnecting) ? (
                     <Loader2 className="h-5 w-5 mr-3 animate-spin" />
                   ) : (
-                    <WalletIcon 
-                      walletName={connector.name} 
-                      className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-200" 
+                    <WalletIcon
+                      walletName={connector.name}
+                      className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform duration-200"
                     />
                   )}
                   <span className="font-medium">Connect with {walletInfo.name}</span>
