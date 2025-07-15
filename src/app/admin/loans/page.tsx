@@ -116,7 +116,7 @@ export default function LoanManagement() {
   const fetchLoansData = async (token: string) => {
     try {
       // Fetch loan applications
-      const applicationsResponse = await fetch("/api/admin/loans/applications", {
+      const applicationsResponse = await fetch("/api/admin/loans", {
         headers: { Authorization: `Bearer ${token}` }
       })
       if (applicationsResponse.ok) {
@@ -125,7 +125,7 @@ export default function LoanManagement() {
       }
 
       // Fetch active loans
-      const loansResponse = await fetch("/api/admin/loans/active", {
+      const loansResponse = await fetch("/api/admin/loans?status=DISBURSED", {
         headers: { Authorization: `Bearer ${token}` }
       })
       if (loansResponse.ok) {
@@ -175,7 +175,7 @@ export default function LoanManagement() {
     setIsProcessing(true)
 
     try {
-      const response = await fetch(`/api/admin/loans/applications/${applicationId}/${action}`, {
+      const response = await fetch(`/api/admin/loans/${applicationId}`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` }
       })

@@ -26,6 +26,7 @@ model User {
   
   // Authentication
   password  String
+  isWalletVerified Boolean @default(false)
   
   // Membership
   membershipStatus MembershipStatus @default(PENDING)

@@ -6,8 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Wallet, ArrowUpRight, ArrowDownLeft, TrendingUp, History, Plus } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Wallet, ArrowUpRight, ArrowDownLeft, TrendingUp, History, Plus, Shield } from "lucide-react"
 import { formatCurrency, formatDate } from "@/lib/utils"
+import { WalletConnection } from "@/components/web3/WalletConnection"
+import { BlockchainSavings } from "@/components/web3/BlockchainSavings"
 
 interface SavingsAccount {
   id: string
@@ -192,10 +195,13 @@ export default function SavingsPage() {
               <Wallet className="h-8 w-8 text-blue-600" />
               <div>
                 <h1 className="text-xl font-bold text-gray-900">Savings Accounts</h1>
-                <p className="text-sm text-gray-600">Manage your savings and deposits</p>
+                <p className="text-sm text-gray-600">Traditional and blockchain savings</p>
               </div>
             </div>
-            <Button onClick={() => router.push("/dashboard")}>Back to Dashboard</Button>
+            <div className="flex items-center space-x-4">
+              <WalletConnection />
+              <Button onClick={() => router.push("/dashboard")}>Back to Dashboard</Button>
+            </div>
           </div>
         </div>
       </header>

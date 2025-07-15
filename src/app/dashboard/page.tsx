@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Wallet, TrendingUp, CreditCard, Vote, LogOut, User, Settings } from "lucide-react"
+import { Wallet, TrendingUp, CreditCard, Vote, LogOut, BarChart, Shield } from "lucide-react"
+import { WalletConnection } from "@/components/web3/WalletConnection"
 
 interface UserData {
     id: string
@@ -89,6 +90,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
                         <div className="flex items-center space-x-4">
+                            <WalletConnection />
                             <div className="text-right">
                                 <p className="text-sm font-medium text-gray-900">
                                     {user.firstName} {user.lastName}
@@ -212,8 +214,12 @@ export default function DashboardPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-2">
-                                <Button className="w-full">Apply for Loan</Button>
-                                <Button variant="outline" className="w-full">View Loan History</Button>
+                                <Link href="/loans/apply">
+                                    <Button className="w-full">Apply for Loan</Button>
+                                </Link>
+                                <Link href="/loans">
+                                    <Button variant="outline" className="w-full">View Loan History</Button>
+                                </Link>
                             </div>
                         </CardContent>
                     </Card>
@@ -230,8 +236,53 @@ export default function DashboardPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-2">
-                                <Button className="w-full">View Proposals</Button>
-                                <Button variant="outline" className="w-full">Create Proposal</Button>
+                                <Link href="/governance">
+                                    <Button className="w-full">View Proposals</Button>
+                                </Link>
+                                <Link href="/governance/create">
+                                    <Button variant="outline" className="w-full">Create Proposal</Button>
+                                </Link>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center space-x-2">
+                                <Shield className="h-5 w-5 text-orange-600" />
+                                <span>Blockchain SACCO</span>
+                            </CardTitle>
+                            <CardDescription>
+                                Secure on-chain savings and loans with smart contracts
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-2">
+                                <Link href="/blockchain/savings">
+                                    <Button className="w-full">On-Chain Savings</Button>
+                                </Link>
+                                <Link href="/blockchain/loans">
+                                    <Button variant="outline" className="w-full">Blockchain Loans</Button>
+                                </Link>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center space-x-2">
+                                <BarChart className="h-5 w-5 text-indigo-600" />
+                                <span>Analytics</span>
+                            </CardTitle>
+                            <CardDescription>
+                                View financial insights and performance
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-2">
+                                <Link href="/analytics">
+                                    <Button className="w-full">View Analytics</Button>
+                                </Link>
                             </div>
                         </CardContent>
                     </Card>

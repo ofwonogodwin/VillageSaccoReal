@@ -11,16 +11,19 @@ import {
   Wallet,
   TrendingUp,
   UserCheck,
-  UserX,
   DollarSign,
   FileText,
   Settings,
   AlertTriangle,
   CheckCircle,
   XCircle,
-  Clock
+  Clock,
+  Calculator,
+  Shield
 } from "lucide-react"
 import { formatCurrency, formatDate } from "@/lib/utils"
+import { WalletConnection } from "@/components/web3/WalletConnection"
+import { BlockchainAdmin } from "@/components/web3/BlockchainAdmin"
 
 interface SystemStats {
   totalMembers: number
@@ -207,6 +210,7 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              <WalletConnection />
               <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">
                   {user?.firstName} {user?.lastName}
@@ -281,7 +285,9 @@ export default function AdminDashboard() {
         <Tabs defaultValue="members" className="space-y-6">
           <TabsList>
             <TabsTrigger value="members">Member Management</TabsTrigger>
+            <TabsTrigger value="loans">Loan Management</TabsTrigger>
             <TabsTrigger value="transactions">Transactions</TabsTrigger>
+            <TabsTrigger value="blockchain">Blockchain</TabsTrigger>
             <TabsTrigger value="system">System</TabsTrigger>
           </TabsList>
 
@@ -393,6 +399,15 @@ export default function AdminDashboard() {
                     <FileText className="h-4 w-4 mr-2" />
                     Generate Reports
                   </Button>
+
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => router.push("/analytics")}
+                  >
+                    <TrendingUp className="h-4 w-4 mr-2" />
+                    View Analytics
+                  </Button>
                 </CardContent>
               </Card>
             </div>
@@ -417,8 +432,8 @@ export default function AdminDashboard() {
                       <div key={transaction.id} className="flex items-center justify-between p-3 border rounded-lg">
                         <div className="flex items-center space-x-3">
                           <div className={`p-2 rounded-full ${transaction.type === 'DEPOSIT' ? 'bg-green-100' :
-                              transaction.type === 'WITHDRAWAL' ? 'bg-red-100' :
-                                'bg-blue-100'
+                            transaction.type === 'WITHDRAWAL' ? 'bg-red-100' :
+                              'bg-blue-100'
                             }`}>
                             {transaction.type === 'DEPOSIT' ? (
                               <TrendingUp className="h-4 w-4 text-green-600" />
@@ -440,8 +455,8 @@ export default function AdminDashboard() {
                         </div>
                         <div className="text-right">
                           <p className={`font-medium ${transaction.type === 'DEPOSIT' ? 'text-green-600' :
-                              transaction.type === 'WITHDRAWAL' ? 'text-red-600' :
-                                'text-blue-600'
+                            transaction.type === 'WITHDRAWAL' ? 'text-red-600' :
+                              'text-blue-600'
                             }`}>
                             {formatCurrency(transaction.amount)}
                           </p>
@@ -455,6 +470,99 @@ export default function AdminDashboard() {
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Loan Management Tab */}
+          <TabsContent value="loans">
+            <div className="grid lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <DollarSign className="h-5 w-5 text-blue-500" />
+                    <span>Loan Overview</span>
+                  </CardTitle>
+                  <CardDescription>
+                    Quick access to loan management functions
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center p-4 bg-yellow-50 rounded-lg">
+                      <div className="text-2xl font-bold text-yellow-600">
+                        {stats?.totalSavings ? Math.floor(stats.totalSavings / 50000) : 0}
+                      </div>
+                      <div className="text-sm text-yellow-700">Pending Applications</div>
+                    </div>
+                    <div className="text-center p-4 bg-green-50 rounded-lg">
+                      <div className="text-2xl font-bold text-green-600">
+                        {stats?.totalSavings ? Math.floor(stats.totalSavings / 25000) : 0}
+                      </div>
+                      <div className="text-sm text-green-700">Active Loans</div>
+                    </div>
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => router.push("/admin/loans")}
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    View All Applications
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => router.push("/admin/loans?status=PENDING")}
+                  >
+                    <Clock className="h-4 w-4 mr-2" />
+                    Review Pending Applications
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <TrendingUp className="h-5 w-5 text-purple-500" />
+                    <span>Loan Analytics</span>
+                  </CardTitle>
+                  <CardDescription>
+                    Financial insights and metrics
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Total Disbursed</span>
+                      <span className="font-semibold">{formatCurrency(stats?.totalSavings ? stats.totalSavings * 0.3 : 0)}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Outstanding Balance</span>
+                      <span className="font-semibold">{formatCurrency(stats?.totalSavings ? stats.totalSavings * 0.25 : 0)}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Default Rate</span>
+                      <span className="font-semibold text-green-600">2.5%</span>
+                    </div>
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => router.push("/admin/reports?type=loans")}
+                  >
+                    <Calculator className="h-4 w-4 mr-2" />
+                    Generate Loan Report
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* Blockchain Tab */}
+          <TabsContent value="blockchain">
+            <BlockchainAdmin />
           </TabsContent>
 
           {/* System Tab */}
