@@ -33,7 +33,7 @@ export default function LoginPage() {
         try {
             const requestBody = { email, password }
             console.log("Sending request to /api/auth/login with:", requestBody)
-            
+
             const response = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: {
@@ -41,19 +41,19 @@ export default function LoginPage() {
                 },
                 body: JSON.stringify(requestBody),
             })
-            
+
             console.log("Response status:", response.status)
 
             const data = await response.json()
 
             if (!response.ok) {
                 const errorMessage = data.error || "Login failed"
-                
+
                 // Provide user-friendly message for pending approval
                 if (errorMessage === "Membership pending approval") {
                     throw new Error("Your account is pending approval. Your registration will be reviewed and approved within 24 hours. Please check your email for updates.")
                 }
-                
+
                 throw new Error(errorMessage)
             }
 
@@ -105,12 +105,12 @@ export default function LoginPage() {
 
             if (!response.ok) {
                 const errorMessage = data.error || "Wallet login failed"
-                
+
                 // Provide user-friendly message for pending approval
                 if (errorMessage === "Membership pending approval") {
                     throw new Error("Your account is pending approval. Your registration will be reviewed and approved within 24 hours. Please check your email for updates.")
                 }
-                
+
                 throw new Error(errorMessage)
             }
 

@@ -115,8 +115,8 @@ export default function AccountStatusPage() {
             <div className="max-w-4xl mx-auto px-4">
                 {/* Header */}
                 <div className="mb-8">
-                    <Button 
-                        variant="ghost" 
+                    <Button
+                        variant="ghost"
                         onClick={() => router.back()}
                         className="mb-4"
                     >
@@ -203,21 +203,18 @@ export default function AccountStatusPage() {
                                     <span>Registration submitted</span>
                                 </div>
                                 <div className="flex items-center">
-                                    <div className={`w-2 h-2 rounded-full mr-3 ${
-                                        user.membershipStatus === 'PENDING' ? 'bg-orange-500' : 'bg-green-500'
-                                    }`}></div>
+                                    <div className={`w-2 h-2 rounded-full mr-3 ${user.membershipStatus === 'PENDING' ? 'bg-orange-500' : 'bg-green-500'
+                                        }`}></div>
                                     <span>Admin review (up to 24 hours)</span>
                                 </div>
                                 <div className="flex items-center">
-                                    <div className={`w-2 h-2 rounded-full mr-3 ${
-                                        user.membershipStatus === 'APPROVED' ? 'bg-green-500' : 'bg-gray-300'
-                                    }`}></div>
+                                    <div className={`w-2 h-2 rounded-full mr-3 ${user.membershipStatus === 'APPROVED' ? 'bg-green-500' : 'bg-gray-300'
+                                        }`}></div>
                                     <span>Account activation</span>
                                 </div>
                                 <div className="flex items-center">
-                                    <div className={`w-2 h-2 rounded-full mr-3 ${
-                                        user.membershipStatus === 'APPROVED' ? 'bg-green-500' : 'bg-gray-300'
-                                    }`}></div>
+                                    <div className={`w-2 h-2 rounded-full mr-3 ${user.membershipStatus === 'APPROVED' ? 'bg-green-500' : 'bg-gray-300'
+                                        }`}></div>
                                     <span>Full access to SACCO services</span>
                                 </div>
                             </div>

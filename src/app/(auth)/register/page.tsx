@@ -151,7 +151,7 @@ export default function RegisterPage() {
                             <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
                             <h2 className="text-2xl font-bold text-gray-900 mb-2">Registration Successful!</h2>
                             <p className="text-gray-600 mb-4">
-                                Your application has been submitted for approval. 
+                                Your application has been submitted for approval.
                             </p>
                             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                                 <div className="flex items-center">
@@ -161,7 +161,7 @@ export default function RegisterPage() {
                                     </p>
                                 </div>
                                 <p className="text-blue-700 text-sm mt-2">
-                                    Your registration will be reviewed and approved within <strong>24 hours</strong>. 
+                                    Your registration will be reviewed and approved within <strong>24 hours</strong>.
                                     You will receive an email notification once your account is approved and ready to use.
                                 </p>
                             </div>

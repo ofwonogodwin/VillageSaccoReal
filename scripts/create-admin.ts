@@ -6,9 +6,9 @@ const prisma = new PrismaClient()
 async function createAdmin() {
   try {
     console.log('Creating admin user...')
-    
+
     const hashedPassword = await bcrypt.hash('admin123', 10)
-    
+
     const admin = await prisma.user.upsert({
       where: { email: 'admin@villagesacco.com' },
       update: {
@@ -29,13 +29,13 @@ async function createAdmin() {
         approvedAt: new Date()
       }
     })
-    
+
     console.log('✅ Admin user created successfully!')
     console.log('📧 Email:', admin.email)
     console.log('🔑 Password: admin123')
     console.log('🔗 Access: http://localhost:3000/login')
     console.log('🎯 After login, you\'ll be redirected to: /admin/dashboard')
-    
+
   } catch (error) {
     console.error('❌ Error creating admin user:', error)
   } finally {
