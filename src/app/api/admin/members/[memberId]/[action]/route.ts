@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
 import { db } from "@/lib/db"
+import { createPublicClient, createWalletClient, http, getContract } from "viem"
+import { privateKeyToAccount } from "viem/accounts"
+import { baseSepolia } from "viem/chains"
+import { CONTRACT_ABI, getContractAddress } from "@/lib/web3"
 
 export async function PATCH(
   request: NextRequest,
@@ -64,7 +68,7 @@ export async function PATCH(
       })
       const membershipNumber = `MEM${String(memberCount + 1).padStart(3, '0')}`
 
-      // Approve member
+      // Approve member in database
       const updatedMember = await db.user.update({
         where: { id: memberId },
         data: {
@@ -75,6 +79,28 @@ export async function PATCH(
         }
       })
 
+      // Register member on blockchain if they have a wallet address
+      let blockchainRegistered = false
+      let blockchainError = null
+
+      if (updatedMember.walletAddress) {
+        try {
+          await registerMemberOnBlockchain(updatedMember.walletAddress, membershipNumber)
+          blockchainRegistered = true
+          
+          // Update database to mark blockchain registration
+          await db.user.update({
+            where: { id: memberId },
+            data: {
+              isWalletVerified: true
+            }
+          })
+        } catch (error) {
+          console.error("Blockchain registration failed:", error)
+          blockchainError = error instanceof Error ? error.message : "Unknown blockchain error"
+        }
+      }
+
       return NextResponse.json({
         success: true,
         message: "Member approved successfully",
@@ -82,7 +108,13 @@ export async function PATCH(
           id: updatedMember.id,
           firstName: updatedMember.firstName,
           lastName: updatedMember.lastName,
-          membershipNumber: updatedMember.membershipNumber
+          membershipNumber: updatedMember.membershipNumber,
+          walletAddress: updatedMember.walletAddress
+        },
+        blockchain: {
+          registered: blockchainRegistered,
+          error: blockchainError,
+          walletRequired: !updatedMember.walletAddress
         }
       })
     } else {
