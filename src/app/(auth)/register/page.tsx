@@ -34,7 +34,6 @@ export default function RegisterPage() {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
-    const [registrationMethod, setRegistrationMethod] = useState<"traditional" | "wallet">("traditional")
 
     const { address: walletAddress, isConnected } = useAccount()
     const { signMessage, isPending: isSigningPending } = useSignMessage()
@@ -82,7 +81,6 @@ export default function RegisterPage() {
             }
 
             setSuccess(true)
-            setRegistrationMethod("traditional")
             setTimeout(() => {
                 router.push("/login")
             }, 2000)
@@ -131,7 +129,6 @@ export default function RegisterPage() {
             }
 
             setSuccess(true)
-            setRegistrationMethod("wallet")
             setTimeout(() => {
                 router.push("/login")
             }, 2000)

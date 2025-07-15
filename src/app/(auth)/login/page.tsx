@@ -86,7 +86,10 @@ export default function LoginPage() {
             // Create a message to sign for verification
             const message = `Village SACCO Login\nWallet: ${walletAddress}\nTimestamp: ${Date.now()}`
 
-            const signature = await signMessage({ message })
+            const signature = await signMessage({ 
+                message,
+                account: walletAddress as `0x${string}`
+            })
 
             // Submit login with wallet signature
             const response = await fetch("/api/auth/login-wallet", {
@@ -257,7 +260,7 @@ export default function LoginPage() {
 
                         <div className="mt-6 text-center">
                             <p className="text-sm text-gray-600">
-                                Don't have an account?{" "}
+                                Don&apos;t have an account?{" "}
                                 <Link href="/register" className="text-blue-600 hover:underline">
                                     Register here
                                 </Link>
