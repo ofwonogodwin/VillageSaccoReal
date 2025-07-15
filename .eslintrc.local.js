@@ -2,7 +2,7 @@ module.exports = {
   extends: ['next/core-web-vitals'],
   rules: {
     // Allow unused variables starting with underscore
-    '@typescript-eslint/no-unused-vars': ['error', { 
+    '@typescript-eslint/no-unused-vars': ['error', {
       'argsIgnorePattern': '^_',
       'varsIgnorePattern': '^_',
       'caughtErrorsIgnorePattern': '^_'
