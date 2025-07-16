@@ -177,7 +177,7 @@ export default function LoanApplication() {
                         <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
                         <h2 className="text-xl font-bold text-gray-900 mb-2">Application Submitted!</h2>
                         <p className="text-gray-600 mb-4">
-                            Your loan application has been submitted successfully. You'll be notified once it's reviewed.
+                            Your loan application has been submitted successfully. You&apos;ll be notified once it&apos;s reviewed.
                         </p>
                         <Button onClick={() => router.push("/loans")}>
                             View Applications

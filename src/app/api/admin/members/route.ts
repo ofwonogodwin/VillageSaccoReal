@@ -47,20 +47,20 @@ export async function GET(request: NextRequest) {
     })
 
     // Calculate totals for each member
-    const membersWithTotals = members.map((member: any) => {
-      const totalSavings = member.savingsAccounts.reduce((sum: number, account: any) => sum + account.balance, 0)
+    const membersWithTotals = members.map((member: Record<string, any>) => {
+      const totalSavings = member.savingsAccounts.reduce((sum: number, account: Record<string, any>) => sum + account.balance, 0)
 
-      const loanTransactions = member.transactions.filter((t: any) => t.type === "LOAN_DISBURSEMENT" || t.type === "LOAN_REPAYMENT")
+      const loanTransactions = member.transactions.filter((t: Record<string, any>) => t.type === "LOAN_DISBURSEMENT" || t.type === "LOAN_REPAYMENT")
       const totalDisbursed = loanTransactions
-        .filter((t: any) => t.type === "LOAN_DISBURSEMENT")
-        .reduce((sum: number, t: any) => sum + t.amount, 0)
+        .filter((t: Record<string, any>) => t.type === "LOAN_DISBURSEMENT")
+        .reduce((sum: number, t: Record<string, any>) => sum + t.amount, 0)
       const totalPaid = loanTransactions
-        .filter((t: any) => t.type === "LOAN_REPAYMENT")
-        .reduce((sum: number, t: any) => sum + t.amount, 0)
+        .filter((t: Record<string, any>) => t.type === "LOAN_REPAYMENT")
+        .reduce((sum: number, t: Record<string, any>) => sum + t.amount, 0)
       const totalLoans = totalDisbursed - totalPaid
 
       const lastTransaction = member.transactions.length > 0
-        ? member.transactions.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
+        ? member.transactions.sort((a: Record<string, any>, b: Record<string, any>) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
         : null
 
       return {

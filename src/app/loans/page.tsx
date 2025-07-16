@@ -294,7 +294,7 @@ export default function LoansPage() {
                                                                 <div className="flex items-center space-x-2">
                                                                     <Clock className="h-4 w-4 text-yellow-600" />
                                                                     <span className="text-sm text-yellow-800">
-                                                                        Your application is under review. We'll notify you once processed.
+                                                                        Your application is under review. We&apos;ll notify you once processed.
                                                                     </span>
                                                                 </div>
                                                             </div>

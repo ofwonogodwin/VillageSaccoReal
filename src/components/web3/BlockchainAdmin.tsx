@@ -189,7 +189,7 @@ export function BlockchainAdmin() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p className="text-gray-600">You don't have admin privileges for this smart contract.</p>
+                    <p className="text-gray-600">You don&apos;t have admin privileges for this smart contract.</p>
                 </CardContent>
             </Card>
         )

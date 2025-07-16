@@ -53,7 +53,7 @@ export async function PUT(
             return NextResponse.json({ error: "Loan not found" }, { status: 404 })
         }
 
-        let updateData: any = {}
+        let updateData: Record<string, any> = {}
         let message = ""
 
         switch (action) {
