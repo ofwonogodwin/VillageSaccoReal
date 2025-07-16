@@ -86,7 +86,7 @@ export default function LoginPage() {
             // Create a message to sign for verification
             const message = `Village SACCO Login\nWallet: ${walletAddress}\nTimestamp: ${Date.now()}`
 
-            const signature = await signMessage({
+            const signature = await signMessage({ 
                 message,
                 account: walletAddress as `0x${string}`
             })

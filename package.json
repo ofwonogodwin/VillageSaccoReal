@@ -9,32 +9,6 @@
     "lint": "next lint",
     "db:seed": "tsx prisma/seed.ts"
   },
-  "overrides": {
-    "@thirdweb-dev/sdk": {
-      "ethers": "$ethers"
-    },
-    "@thirdweb-dev/react": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    },
-    "@thirdweb-dev/auth": {
-      "ethers": "$ethers",
-      "next": "$next"
-    },
-    "@eth-optimism/contracts": {
-      "ethers": "$ethers"
-    },
-    "@eth-optimism/sdk": {
-      "ethers": "$ethers"
-    },
-    "@thirdweb-dev/contracts-js": {
-      "ethers": "$ethers"
-    },
-    "@headlessui/react": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    }
-  },
   "dependencies": {
     "@coinbase/wallet-sdk": "^4.3.6",
     "@hookform/resolvers": "^5.1.1",

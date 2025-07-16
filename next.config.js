@@ -21,7 +21,7 @@ const nextConfig = {
     config.ignoreWarnings = [
       { module: /node_modules/ },
     ];
-
+    
     return config;
   },
 };
