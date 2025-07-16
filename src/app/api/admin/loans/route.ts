@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
         ])
 
         // Format the response
-        const formattedApplications = applications.map(app => ({
+        const formattedApplications = applications.map((app: any) => ({
             id: app.id,
             amount: app.amount,
             purpose: app.purpose,

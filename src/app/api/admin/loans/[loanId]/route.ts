@@ -236,29 +236,29 @@ export async function GET(
             remainingBalance: loan.remainingBalance,
             status: loan.status,
             appliedAt: loan.appliedAt,
-            approvedAt: loan.approvedAt,
-            disbursedAt: loan.disbursedAt,
-            nextPaymentDue: loan.nextPaymentDue,
-            collateralType: loan.collateralType,
-            collateralValue: loan.collateralValue,
-            collateralDescription: loan.collateralDescription,
+            approvedAt: loan.approvedAt || null,
+            disbursedAt: loan.disbursedAt || null,
+            nextPaymentDue: loan.nextPaymentDue || null,
+            collateralType: loan.collateralType || null,
+            collateralValue: loan.collateralValue || null,
+            collateralDescription: loan.collateralDescription || null,
             applicant: {
                 id: loan.user.id,
                 name: `${loan.user.firstName} ${loan.user.lastName}`,
                 email: loan.user.email,
-                phone: loan.user.phone,
-                membershipNumber: loan.user.membershipNumber
+                phone: loan.user.phone || null,
+                membershipNumber: loan.user.membershipNumber || null
             },
-            repaymentSchedule: loan.repayments.map(repayment => ({
+            repaymentSchedule: loan.repayments?.map((repayment: any) => ({
                 id: repayment.id,
                 amount: repayment.amount,
                 principal: repayment.principal,
                 interest: repayment.interest,
-                penalty: repayment.penalty,
+                penalty: repayment.penalty || null,
                 dueDate: repayment.dueDate,
-                paidDate: repayment.paidDate,
+                paidDate: repayment.paidDate || null,
                 status: repayment.status
-            }))
+            })) || []
         })
 
     } catch (error) {
