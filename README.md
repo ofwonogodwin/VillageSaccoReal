@@ -2,29 +2,29 @@
 
 A modern, comprehensive SACCO (Savings and Credit Cooperative Organization) platform built with Next.js 15, TypeScript, and blockchain integration. This platform enables communities to manage their cooperative finances digitally with transparency, security, and efficiency.
 
-## 🌟 Features
+##  Features
 
 ### Core Financial Services
-- **💰 Savings Management**: Multiple account types (Regular, Fixed Deposit, Emergency)
-- **🏦 Loan Services**: Application, approval workflow, repayment tracking
-- **💳 Transaction Processing**: Deposits, withdrawals, transfers with blockchain logging
-- **📊 Interest Calculation**: Automated interest computation and distribution
+- **Savings Management**: Multiple account types (Regular, Fixed Deposit, Emergency)
+- **Loan Services**: Application, approval workflow, repayment tracking
+- **Transaction Processing**: Deposits, withdrawals, transfers with blockchain logging
+- ** Interest Calculation**: Automated interest computation and distribution
 
 ### Governance & Administration
-- **🗳️ Digital Voting**: Proposal creation and democratic decision-making
-- **👥 Member Management**: Registration, approval, status tracking
-- **📋 Admin Dashboard**: Comprehensive oversight and management tools
-- **📈 Analytics**: Financial insights, performance metrics, trend analysis
+- ** Digital Voting**: Proposal creation and democratic decision-making
+- ** Member Management**: Registration, approval, status tracking
+- ** Admin Dashboard**: Comprehensive oversight and management tools
+- ** Analytics**: Financial insights, performance metrics, trend analysis
 
 ### Modern Technology Stack
-- **⚡ Next.js 15**: Latest React framework with App Router
-- **🔷 TypeScript**: Full type safety and enhanced developer experience
-- **🎨 Tailwind CSS**: Modern, responsive UI design
-- **🗄️ Prisma + SQLite**: Type-safe database operations
-- **🔐 JWT Authentication**: Secure user authentication and authorization
-- **🌐 Blockchain Ready**: Architecture prepared for web3 integration
+- ** Next.js 15**: Latest React framework with App Router
+- ** TypeScript**: Full type safety and enhanced developer experience
+- ** Tailwind CSS**: Modern, responsive UI design
+- ** Prisma + SQLite**: Type-safe database operations
+- ** JWT Authentication**: Secure user authentication and authorization
+- ** Blockchain Ready**: Architecture prepared for web3 integration
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
@@ -45,7 +45,7 @@ A modern, comprehensive SACCO (Savings and Credit Cooperative Organization) plat
    ```
    This will:
    - Install dependencies
-   - Set up environment variables
+   - SUse the set up environment variables
    - Initialize the database
    - Seed with sample data (optional)
 
@@ -59,9 +59,9 @@ A modern, comprehensive SACCO (Savings and Credit Cooperative Organization) plat
    - Admin: `admin@villagesacco.com` / `admin123`
    - Member: `member@villagesacco.com` / `member123`
 
-## 📊 Current Implementation Status
+## Current Implementation Status
 
-### ✅ Completed Features
+### Completed Features
 - **Authentication System**: Registration, login, JWT-based auth
 - **Member Management**: Admin approval workflow, status management
 - **Savings Module**: Account creation, deposits, withdrawals, interest calculation  
@@ -71,7 +71,7 @@ A modern, comprehensive SACCO (Savings and Credit Cooperative Organization) plat
 - **Admin Panel**: Comprehensive management tools, reporting, oversight
 - **Responsive UI**: Modern design with Tailwind CSS, mobile-friendly
 
-### 🔄 Key APIs Implemented
+### Key APIs Implemented
 - Member registration and authentication
 - Savings account management (deposits, withdrawals)
 - Loan application and approval workflow
@@ -79,7 +79,7 @@ A modern, comprehensive SACCO (Savings and Credit Cooperative Organization) plat
 - Admin member management and reporting
 - Real-time analytics and financial metrics
 
-### 🎯 Ready for Integration
+### Ready for Integration
 - **Blockchain/Web3**: Smart contracts for loans and governance
 - **Payment Gateways**: Mobile money, bank transfers
 - **Mobile App**: React Native implementation
