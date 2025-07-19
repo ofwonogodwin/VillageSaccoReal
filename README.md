@@ -2,7 +2,7 @@
 
 A modern, comprehensive SACCO (Savings and Credit Cooperative Organization) platform built with Next.js 15, TypeScript, and blockchain integration. This platform enables communities to manage their cooperative finances digitally with transparency, security, and efficiency.
 
-##  Features
+##  Its Features
 
 ### Core Financial Services
 - **Savings Management**: Multiple account types (Regular, Fixed Deposit, Emergency)
